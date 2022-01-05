@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import '../models/grocery_item.dart';
+
+class GroceryTile extends StatelessWidget {
+  // Include a GroceryItem to configure the tile.
+  final GroceryItem item;
+  // onComplete is a callback handler that lets know whether the user toggled the checkbox on or off.
+  final Function(bool?)? onComplete;
+  final TextDecoration textDecoration;
+
+  // When initialize a GroceryTile, check the item to see if the user marked it as complete. If so, show a strike through the text. Otherwise, display the text as normal.
+  GroceryTile({
+    Key? key,
+    required this.item,
+    this.onComplete,
+  })  : textDecoration =
+            item.isComplete ? TextDecoration.lineThrough : TextDecoration.none,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO 21: Change this Widget
+    return Container(
+      height: 100.0,
+      // TODO 20: Replace this color
+      color: Colors.red,
+    );
+  }
+
+  // TODO: Add BuildImportance()
+
+  // TODO: Add buildDate()
+
+  // TODO: Add buildCheckbox()
+}
