@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'empty_grocery_screen.dart';
 import 'package:provider/provider.dart';
 import '../models/models.dart';
+import 'grocery_item_screen.dart';
 
 class GroceryScreen extends StatelessWidget {
   const GroceryScreen({Key? key}) : super(key: key);
@@ -13,7 +14,27 @@ class GroceryScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          // TODO 11: Present GroceryItemScreen
+          // Returns the GroceryManager available in the tree.
+          final manager = Provider.of<GroceryManager>(context, listen: false);
+          // Navigator.push() adds a new route to the stack of routes.
+          Navigator.push(
+            context,
+            // MaterialPageRoute replaces the entire screen with a platform-specific transition.
+            MaterialPageRoute(
+              // Creates a new GroceryItemScreen within the route’s builder callback.
+              builder: (context) => GroceryItemScreen(
+                // onCreate defines what to do with the created item.
+                onCreate: (item) {
+                  // addItem() adds this new item to the list of items.
+                  manager.addItem(item);
+                  // Once the item is added to the list, pop removes the top navigation route item, GroceryItemScreen, to show the list of grocery items.
+                  Navigator.pop(context);
+                },
+                // onUpdate will never get called since you are creating a new item.
+                onUpdate: (item) {},
+              ),
+            ),
+          );
         },
       ),
       body: buildGroceryScreen(),
